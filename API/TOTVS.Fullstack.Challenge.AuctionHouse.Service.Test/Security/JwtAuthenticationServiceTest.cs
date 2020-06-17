@@ -16,7 +16,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
         public class AuthenticateAsync
         {
             [Theory, AutoMoqData]
-            public async Task UsuarioInvalido_LancaExcecao(string username, string password, Exception exception, [Frozen]Mock<IUserService> userService, JwtAuthenticationService sut)
+            public async Task UsuarioInvalido_LancaExcecao(string username, string password, Exception exception, [Frozen] Mock<IUserService> userService, JwtAuthenticationService sut)
             {
                 userService.Setup(mock => mock.GetByUsernameAsync(It.IsAny<string>())).ThrowsAsync(exception);
 
@@ -24,7 +24,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             }
 
             [Theory, AutoMoqData]
-            public async Task UsuarioValido_RetornaJwtAuthenticationResult(string username, string password, User user, [Frozen]Mock<IUserService> userService, JwtAuthenticationService sut)
+            public async Task UsuarioValido_RetornaJwtAuthenticationResult(string username, string password, User user, [Frozen] Mock<IUserService> userService, JwtAuthenticationService sut)
             {
                 DateTime minimumExpirationDateTime = DateTime.Now.AddDays(1);
                 user.Password = password;

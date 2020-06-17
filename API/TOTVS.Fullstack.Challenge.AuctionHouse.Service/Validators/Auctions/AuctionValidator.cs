@@ -23,7 +23,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Validators.Auctions
             RuleFor(auction => auction.InitialBid).GreaterThanOrEqualTo(0);
             RuleFor(auction => auction.Name).NotEmpty();
             RuleFor(auction => auction.Open).LessThan(auction => auction.Close);
-            RuleFor(auction => auction.Responsible).SetValidator(auctionResponsibleUserValidator);
+            RuleFor(auction => auction.Responsible).NotNull().SetValidator(auctionResponsibleUserValidator);
         }
     }
 }

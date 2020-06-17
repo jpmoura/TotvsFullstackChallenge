@@ -18,7 +18,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             [InlineAutoMoqData(null)]
             [InlineAutoMoqData("")]
             [InlineAutoMoqData(" ")]
-            public async Task UsernameInvalido_LancaInvalidParameterException(string username, string password, [Frozen]Mock<IUserService> userService, BaseAuthenticationService sut)
+            public async Task UsernameInvalido_LancaInvalidParameterException(string username, string password, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 await Assert.ThrowsAsync<InvalidParameterException>(() => sut.AuthenticateAsync(username, password));
                 userService.Verify(mock => mock.GetByUsernameAsync(It.IsAny<string>()), Times.Never);
@@ -28,14 +28,14 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             [InlineAutoMoqData(null)]
             [InlineAutoMoqData("")]
             [InlineAutoMoqData(" ")]
-            public async Task UsernameValido_SenhaInvalida_LancaInvalidParameterException(string password, string username, [Frozen]Mock<IUserService> userService, BaseAuthenticationService sut)
+            public async Task UsernameValido_SenhaInvalida_LancaInvalidParameterException(string password, string username, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 await Assert.ThrowsAsync<InvalidParameterException>(() => sut.AuthenticateAsync(username, password));
                 userService.Verify(mock => mock.GetByUsernameAsync(It.IsAny<string>()), Times.Never);
             }
 
             [Theory, AutoMoqData]
-            public async Task UsernameValido_SenhaValida_UsuarioNaoEncontrado_LancaInvalidParameterException(string username, string password, [Frozen]Mock<IUserService> userService, BaseAuthenticationService sut)
+            public async Task UsernameValido_SenhaValida_UsuarioNaoEncontrado_LancaInvalidParameterException(string username, string password, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 await Assert.ThrowsAsync<InvalidParameterException>(() => sut.AuthenticateAsync(username, password));
 
@@ -43,7 +43,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             }
 
             [Theory, AutoMoqData]
-            public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioDesativado_LancaInvalidParameterException(string username, string password, User user, [Frozen]Mock<IUserService> userService, BaseAuthenticationService sut)
+            public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioDesativado_LancaInvalidParameterException(string username, string password, User user, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 user.IsActive = false;
 
@@ -55,7 +55,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             }
 
             [Theory, AutoMoqData]
-            public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioAtivado_SenhaErrada_LancaInvalidParameterException(string username, string password, User user, [Frozen]Mock<IUserService> userService, BaseAuthenticationService sut)
+            public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioAtivado_SenhaErrada_LancaInvalidParameterException(string username, string password, User user, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 userService.Setup(mock => mock.GetByUsernameAsync(It.IsAny<string>())).ReturnsAsync(user);
 
@@ -65,7 +65,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             }
 
             [Theory, AutoMoqData]
-            public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioAtivado_SenhaCorreta_LancaInvalidParameterException(string username, string password, User user, [Frozen]Mock<IUserService> userService, BaseAuthenticationService sut)
+            public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioAtivado_SenhaCorreta_LancaInvalidParameterException(string username, string password, User user, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 user.Password = password;
                 userService.Setup(mock => mock.GetByUsernameAsync(It.IsAny<string>())).ReturnsAsync(user);

@@ -12,7 +12,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Validators.Helper
         public class DefaultRuleSet
         {
             [Theory, AutoMoqData]
-            public void PaginaNaoPreenchida_TamahnoPaginaNaoPreenchido_RetornaVoid(Pagination pagination, PaginationValidator sut)
+            public void PaginaNaoPreenchida_TamanhoPaginaNaoPreenchido_RetornaVoid(Pagination pagination, PaginationValidator sut)
             {
                 pagination.Page = null;
                 pagination.PageSize = null;
@@ -21,6 +21,28 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Validators.Helper
 
                 sut.ShouldNotHaveValidationErrorFor(pagination => pagination.Page, pagination);
                 sut.ShouldNotHaveValidationErrorFor(pagination => pagination.PageSize, pagination);
+
+            }
+
+            [Theory, AutoMoqData]
+            public void PaginaNaoPreenchida_TamanhoPaginaPreenchido_RetornaVoid(Pagination pagination, PaginationValidator sut)
+            {
+                pagination.Page = null;
+
+                Assert.Throws<ValidationException>(() => sut.ValidateAndThrow(pagination));
+                sut.ShouldHaveValidationErrorFor(pagination => pagination.Page, pagination);
+                sut.ShouldNotHaveValidationErrorFor(pagination => pagination.PageSize, pagination);
+
+            }
+
+            [Theory, AutoMoqData]
+            public void PaginaPreenchida_TamanhoPaginaNaoPreenchido_RetornaVoid(Pagination pagination, PaginationValidator sut)
+            {
+                pagination.PageSize = null;
+
+                Assert.Throws<ValidationException>(() => sut.ValidateAndThrow(pagination));
+                sut.ShouldHaveValidationErrorFor(pagination => pagination.PageSize, pagination);
+                sut.ShouldHaveValidationErrorFor(pagination => pagination.Page, pagination);
 
             }
 
