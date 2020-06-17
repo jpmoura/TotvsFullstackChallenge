@@ -1,0 +1,152 @@
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper;
+using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions;
+using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Errors;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Service.Validations;
+
+namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
+{
+    /// <summary>
+    /// Controller de leilão
+    /// </summary>
+    [Authorize]
+    [ApiController]
+    [ApiVersion("1")]
+    [Route("api/v{version:ApiVersion}/[controller]")]
+    public class AuctionController : ControllerBase
+    {
+        /// <summary>
+        /// Serviço de leilão
+        /// </summary>
+        private readonly IAuctionService auctionService;
+
+        /// <summary>
+        /// Serviço de usuário
+        /// </summary>
+        private readonly IUserService userService;
+
+        /// <summary>
+        /// Serviço de log
+        /// </summary>
+        private readonly ILogger<AuctionController> logger;
+
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="auctionService">Serviço de leilão</param>
+        /// <param name="userService">Serviço de usuário</param>
+        /// <param name="logger">Serviço de log</param>
+        public AuctionController(IAuctionService auctionService, IUserService userService, ILogger<AuctionController> logger)
+        {
+            this.auctionService = auctionService;
+            this.userService = userService;
+            this.logger = logger;
+        }
+
+        /// <summary>
+        /// Lista leilões
+        /// </summary>
+        /// <param name="pagination">Paginação</param>
+        /// <returns>Lista paginada de leilões cadastrados</returns>
+        [HttpGet]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Leilões cadastrados", typeof(IEnumerable<AuctionDto>))]
+        public ActionResult<IEnumerable<AuctionDto>> Index([FromQuery] Pagination pagination)
+        {
+            return Ok(auctionService.List(pagination).AsEnumerable().Select(auction => AuctionDto.From(auction)));
+        }
+
+        /// <summary>
+        /// Obtém um leilão
+        /// </summary>
+        /// <param name="id">Identificador do leilão</param>
+        /// <returns>Leilão encontrado</returns>
+        [HttpGet("{id:length(24)}")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Leilão encontrado", typeof(AuctionDto))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Leilão não encontrado", typeof(ErrorMessageDto))]
+        public async Task<ActionResult<AuctionDto>> GetById(string id)
+        {
+            Auction auction = await auctionService.GetByIdAsync(id);
+
+            CommonValidator.EnforceResourceFound(auction, typeof(Auction), id);
+
+            return Ok(AuctionDto.From(auction));
+        }
+
+        /// <summary>
+        /// Cria um leilão
+        /// </summary>
+        /// <param name="newAuction">Modelo do leilão a ser criado</param>
+        /// <returns>Leilão criado</returns>
+        [HttpPost]
+        [SwaggerResponse((int)HttpStatusCode.Created, "Leilão criado com sucesso", typeof(AuctionDto))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Parâmetro(s) de entrada inválido(s)", typeof(ErrorMessageDto))]
+        public async Task<ActionResult<AuctionDto>> Create([FromBody] AuctionDto newAuction)
+        {
+            User responsible = await userService.GetByIdAsync(newAuction.Responsible.Id);
+
+            if (responsible == null)
+            {
+                throw new InvalidParameterException(nameof(newAuction.Responsible));
+            }
+
+            await auctionService.CreateAsync(newAuction.To(responsible));
+
+            return CreatedAtAction("GetById", null); // recuperar o objeto criado e inserir aqui
+        }
+
+        /// <summary>
+        /// Atualiza um leilão
+        /// </summary>
+        /// <param name="id">Identificador do leilão</param>
+        /// <param name="auctionToUpdate">Modelo com as informações atualizadas</param>
+        /// <returns>Modelo representando o leilão atualizado</returns>
+        [HttpPut("{id:length(24)}")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Leilão atualizado com sucesso", typeof(AuctionDto))]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Parâmetro(s) de entrada inválido(s)", typeof(ErrorMessageDto))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Leilão não encontrado", typeof(ErrorMessageDto))]
+        public async Task<IActionResult> Update(string id, [FromBody] AuctionDto auctionToUpdate)
+        {
+            Auction auction = await auctionService.GetByIdAsync(id);
+
+            CommonValidator.EnforceResourceFound(auction, typeof(Auction), id);
+
+
+            // atualizar dados da auction
+
+            Auction updatedAuction = await auctionService.UpdateAsync(auction);
+
+            return Ok(AuctionDto.From(updatedAuction));
+        }
+
+        /// <summary>
+        /// Deleta um leilão
+        /// </summary>
+        /// <param name="id">Identificador do leilão</param>
+        /// <returns></returns>
+        [HttpDelete("{id:length(24)}")]
+        [SwaggerResponse((int)HttpStatusCode.NoContent, "Leilão atualizado com sucesso", typeof(AuctionDto))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Leilão não encontrado", typeof(ErrorMessageDto))]
+        public async Task<IActionResult> Delete(string id)
+        {
+            Auction auction = await auctionService.GetByIdAsync(id);
+
+            CommonValidator.EnforceResourceFound(auction, typeof(Auction), id);
+
+            await auctionService.DeleteAsync(auction.Id);
+
+            return NoContent();
+        }
+    }
+}

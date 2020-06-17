@@ -1,0 +1,442 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TOTVS.Fullstack.Challenge.AuctionHouse.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage.DisabledUserException">
+            <summary>
+              Looks up a localized string similar to Usuário com identificação {0} está desativado. Impossível completar a ação..
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage.InvalidParameterException">
+            <summary>
+              Looks up a localized string similar to Parâmetro {0} possui valor inválido.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage.ResourceNotFoundException">
+            <summary>
+              Looks up a localized string similar to {0} com identificação {1} não encontrado.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage.UnhandledException">
+            <summary>
+              Looks up a localized string similar to Erro não tratado.
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ValidationRuleSetName">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ValidationRuleSetName.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ValidationRuleSetName.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ValidationRuleSetName.Create">
+            <summary>
+              Looks up a localized string similar to create.
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Contexts.IMongoDbContext">
+            <summary>
+            Contrato de contexto do MongoDB
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Contexts.IMongoDbContext.GetCollection``1(System.String,System.String)">
+            <summary>
+            Obtém uma coleção do MongoDB relacionada a um tipo de entidade
+            </summary>
+            <typeparam name="T">Tipo da entidade</typeparam>
+            <param name="databaseName">Nome da base de dados</param>
+            <param name="collectionName">Nome da coleção</param>
+            <returns>Coleção relacionada à entidade</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.Core.IUserRepository">
+            <summary>
+            Contrato do repositório de usuário
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.Core.IUserRepository.GetByUsernameAsync(System.String)">
+            <summary>
+            Obtém um usuário pelo nome de sistema assincronamente
+            </summary>
+            <param name="username">Nome de sistema do usuário</param>
+            <returns>Instância representando o usuário caso encontrado ou null caso contrário</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.IRepository`1">
+            <summary>
+            Contrato de repositório
+            </summary>
+            <typeparam name="TEntity">Tipo da entidade</typeparam>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.IRepository`1.List(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
+            <summary>
+            Obtém uma lista paginada das instâncias da entidade
+            </summary>
+            <param name="pagination">Parâmetros de paginação</param>
+            <returns>Lista paginada da entidade</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.IRepository`1.GetByIdAsync(System.String)">
+            <summary>
+            Obtém uma entidade pelo ID assincronamente
+            </summary>
+            <param name="id">ID da entidade</param>
+            <returns>Instância da entidade caso encontrada e null caso contrário</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.IRepository`1.UpdateAsync(`0)">
+            <summary>
+            Atualiza uma instância da entidade no banco de dados assincronamente
+            </summary>
+            <param name="entityToUpdate">Entidade a ser atualizada</param>
+            <returns>Instância atualizada da entidade</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.IRepository`1.CreateAsync(`0)">
+            <summary>
+            Cria uma nova instância da entidade no banco de dados assincronamente
+            </summary>
+            <param name="newEntity">Instância da entidade a ser criada</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.IRepository`1.DeleteAsync(System.String)">
+            <summary>
+            Remove a instância da entidade do banco de dados assincronamente
+            </summary>
+            <param name="id">ID da entidade</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService">
+            <summary>
+            Contrato de serviços de leilão
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService.List(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
+            <summary>
+            Lista os leilões
+            </summary>
+            <param name="pagination">Parâmetros de paginação</param>
+            <returns>Uma lista de leilões cadastrados</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService.GetByIdAsync(System.String)">
+            <summary>
+            Obtém um leilão de acordo com o ID assincronamente
+            </summary>
+            <param name="id">ID do leilão</param>
+            <returns>Instância do leilão caso encontrado e null caso contrário</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService.UpdateAsync(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction)">
+            <summary>
+            Atualiza uma instância de leilão no banco de dados assincronamente
+            </summary>
+            <param name="auctionToUpdate">Leilão a ser atualizado</param>
+            <returns>Leiláo atualizado</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService.CreateAsync(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction)">
+            <summary>
+            Cria uma nova instância de leilão no banco de dados assincronamente
+            </summary>
+            <param name="newAuction">Novo leilão</param>
+            <returns>Tarefa assíncrona</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService.DeleteAsync(System.String)">
+            <summary>
+            Remove a instância de leilão do banco de dados assincronamente
+            </summary>
+            <param name="id">ID do leilão</param>
+            <returns>Tarefa assíncrona</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService">
+            <summary>
+            Contrato de serviços de usuário
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService.GetByIdAsync(System.String)">
+            <summary>
+            Obtém uma instância da entidade de usuário pelo seu ID assincronamente
+            </summary>
+            <param name="id">ID do usuário</param>
+            <returns>A instância do usuário encontrada ou null caso contrário</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService.GetByUsernameAsync(System.String)">
+            <summary>
+            Obtém um uusário baseado no seu nome de usuário de sistema
+            </summary>
+            <param name="username">Nome do usuário no sistema</param>
+            <returns>O usuário caso encontrado ou null caso contrário</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService.List(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
+            <summary>
+            Lista de forma paginada os usuários cadastrados
+            </summary>
+            <param name="pagination">Parâmetros de paginação</param>
+            <returns>Lista de usuários "queryável"</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Security.IAuthenticationService">
+            <summary>
+            Contrato de serviço de autenticação
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Security.IAuthenticationService.AuthenticateAsync(System.String,System.String)">
+            <summary>
+            Authentica o usuário assincronamente
+            </summary>
+            <param name="username">Nome do usuário no sistema</param>
+            <param name="password">Senha</param>
+            <returns>Usuário autenticado</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Security.IJwtAuthenticationService">
+            <summary>
+            Contrato de serviço de autenticação que produz um JWT
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Security.IJwtAuthenticationService.AuthenticateAsync(System.String,System.String)">
+            <summary>
+            Autentica um usuário produzindo um JWT como resultado
+            </summary>
+            <param name="username">Nome do usuário no sistema</param>
+            <param name="password">Senha do usuário</param>
+            <returns>Modelo representando o usuário autenticado</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.DisabledUserException">
+            <summary>
+            Exceção lançada quando a ação exige que o usuário esteja ativado para ser executada
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.DisabledUserException.Message">
+            <summary>
+            Mensagem da exceção
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.DisabledUserException.User">
+            <summary>
+            Usuário que está desativado
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.DisabledUserException.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User)">
+            <summary>
+            Construtor padrão
+            </summary>
+            <param name="user">Usuário que está desativado</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.DisabledUserException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Construtor de serialização
+            </summary>
+            <param name="info">Dados de serialização</param>
+            <param name="context">Contexto de fluxo de dados</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.InvalidParameterException">
+            <summary>
+            Exceção lançada quando um parâmetro que passar por validação for inválido
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.InvalidParameterException.Message">
+            <summary>
+            Mensagem da exceção
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.InvalidParameterException.ParameterName">
+            <summary>
+            Nome do parâmetro inválido
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.InvalidParameterException.#ctor(System.String)">
+            <summary>
+            Construtor padrão
+            </summary>
+            <param name="parameterName">Tipo do recurso</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.InvalidParameterException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Construtor de serialização
+            </summary>
+            <param name="info">Dados de serialização</param>
+            <param name="context">Contexto de fluxo de dados</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.ResourceNotFoundException">
+            <summary>
+            Exceção para recurso não encontrado
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.ResourceNotFoundException.Message">
+            <summary>
+            Mensagem da exceção
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.ResourceNotFoundException.ResourceType">
+            <summary>
+            Tipo do recurso que não foi encontrado
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.ResourceNotFoundException.Id">
+            <summary>
+            Identificador que foi utilizado na busca do recurso
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.ResourceNotFoundException.#ctor(System.Type,System.String)">
+            <summary>
+            Construtor padrão
+            </summary>
+            <param name="resourceType">Tipo do recurso</param>
+            <param name="id">Identificador usado na busca do recurso</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Exceptions.ResourceNotFoundException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Construtor de serialização
+            </summary>
+            <param name="info">Dados de serialização</param>
+            <param name="context">Contexto de fluxo de dados</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction">
+            <summary>
+            Modelo da entidade leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.Id">
+            <summary>
+            ID do leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.Name">
+            <summary>
+            Nome do leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.InitialBid">
+            <summary>
+            Lance inicial
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.Open">
+            <summary>
+            Data de abertura
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.Close">
+            <summary>
+            Data de encerramento
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.IsUsed">
+            <summary>
+            Indicador de item usado
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.Auction.Responsible">
+            <summary>
+            Usuário responsável pelo leilão
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.AuctionResponsibleUser">
+            <summary>
+            Modelo do usuário responsável pelo leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.AuctionResponsibleUser.Id">
+            <summary>
+            ID do usuário responsável
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.AuctionResponsibleUser.Name">
+            <summary>
+            Nome do usuário responsável
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User">
+            <summary>
+            Modelo da entidade usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User.Id">
+            <summary>
+            ID do objeto
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User.Name">
+            <summary>
+            Nome do usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User.Username">
+            <summary>
+            Nome do usuário de sistema
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User.Password">
+            <summary>
+            Senha
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User.IsActive">
+            <summary>
+            Indicador que define se o usuário está ativado ou não
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination">
+            <summary>
+            Modelo de paginação
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination.Page">
+            <summary>
+            Numeração da página
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination.PageSize">
+            <summary>
+            Tamanho da página
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult">
+            <summary>
+            Modelo do resultado de uma autenticação que tem como produto um JWT
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult.Token">
+            <summary>
+            JWT
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult.Expires">
+            <summary>
+            Data e horário de expiração do JWT
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult.Name">
+            <summary>
+            Nome do usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult.Username">
+            <summary>
+            Nome de sistema do usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult.UserId">
+            <summary>
+            ID do usuário no sistema
+            </summary>
+        </member>
+    </members>
+</doc>

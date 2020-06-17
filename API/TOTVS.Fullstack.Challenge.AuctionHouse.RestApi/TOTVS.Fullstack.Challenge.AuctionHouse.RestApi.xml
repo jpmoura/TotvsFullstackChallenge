@@ -1,0 +1,358 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TOTVS.Fullstack.Challenge.AuctionHouse.RestApi</name>
+    </assembly>
+    <members>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations.SwaggerConfiguration">
+            <summary>
+            Classe que aplica as configurações do Swagger
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations.SwaggerConfiguration.Apply(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Aplica as configurações do Swagger na camada de serviços
+            </summary>
+            <param name="serviceCollection">Container de serviços</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations.SwaggerConfiguration.Apply(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Aplica as configurações do Swagger na camada da aplicação
+            </summary>
+            <param name="applicationBuilder">Construtor da aplicação</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController">
+            <summary>
+            Controller de leilão
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.auctionService">
+            <summary>
+            Serviço de leilão
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.userService">
+            <summary>
+            Serviço de usuário
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.logger">
+            <summary>
+            Serviço de log
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService,TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService,Microsoft.Extensions.Logging.ILogger{TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController})">
+            <summary>
+            Construtor
+            </summary>
+            <param name="auctionService">Serviço de leilão</param>
+            <param name="userService">Serviço de usuário</param>
+            <param name="logger">Serviço de log</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Index(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
+            <summary>
+            Lista leilões
+            </summary>
+            <param name="pagination">Paginação</param>
+            <returns>Lista paginada de leilões cadastrados</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.GetById(System.String)">
+            <summary>
+            Obtém um leilão
+            </summary>
+            <param name="id">Identificador do leilão</param>
+            <returns>Leilão encontrado</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Create(TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto)">
+            <summary>
+            Cria um leilão
+            </summary>
+            <param name="newAuction">Modelo do leilão a ser criado</param>
+            <returns>Leilão criado</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Update(System.String,TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto)">
+            <summary>
+            Atualiza um leilão
+            </summary>
+            <param name="id">Identificador do leilão</param>
+            <param name="auctionToUpdate">Modelo com as informações atualizadas</param>
+            <returns>Modelo representando o leilão atualizado</returns>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Delete(System.String)">
+            <summary>
+            Deleta um leilão
+            </summary>
+            <param name="id">Identificador do leilão</param>
+            <returns></returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController">
+            <summary>
+            Controller de usuário
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController.userService">
+            <summary>
+            Serviço de usuário
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController.jwtAuthenticationService">
+            <summary>
+            Serviço de autenticação com JWT
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController.logger">
+            <summary>
+            Serviço de log
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService,TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Security.IJwtAuthenticationService,Microsoft.Extensions.Logging.ILogger{TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController})">
+            <summary>
+            Construtor
+            </summary>
+            <param name="userService">Serviço de usuário</param>
+            <param name="jwtAuthenticationService">Serviço de autenticação com JWT</param>
+            <param name="logger">Serviço de log</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController.Authenticate(System.String,System.String)">
+            <summary>
+            Autentica um usuário
+            </summary>
+            <param name="username">Nome de usuário no sistema</param>
+            <param name="password">Senha do usuário</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController.Index(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
+            <summary>
+            Lista os usuários de maneira paginada
+            </summary>
+            <param name="pagination">Parâmetros de paginação</param>
+            <returns>Lista paginada de usuários cadastrados</returns>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.Id">
+            <summary>
+            ID do leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.Name">
+            <summary>
+            Nome do leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.InitialBid">
+            <summary>
+            Lance inicial
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.Open">
+            <summary>
+            Data de abertura
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.Close">
+            <summary>
+            Data de encerramento
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.IsUsed">
+            <summary>
+            Indicador de item usado
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.Responsible">
+            <summary>
+            Usuário responsável pelo leilão
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto.To(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User)">
+            <summary>
+            Cria uma instância de DTO de leilão em uma instância da entidade leilão
+            </summary>
+            <param name="responsible">Instância do usuário responsável pelo leilão</param>
+            <returns>Instância da entitade leilão correspondente ao DTO usado na invocação do método</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionResponsibleUserDto">
+            <summary>
+            DTO da entidade usuário responsável pelo leilão
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionResponsibleUserDto.Id">
+            <summary>
+            ID do usuário responsável
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionResponsibleUserDto.Name">
+            <summary>
+            Nome do usuário responsável
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionResponsibleUserDto.From(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions.AuctionResponsibleUser)">
+            <summary>
+            Cria um DTO de usuário responsável pelo leilão a partir de uma instância da entidade
+            </summary>
+            <param name="entity">Instância da entidade usuário resposável pelo leilão</param>
+            <returns>DTO de usuário responsável pelo leilão</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Core.UserDto">
+            <summary>
+            DTO da entidade usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Core.UserDto.Id">
+            <summary>
+            ID do usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Core.UserDto.Name">
+            <summary>
+            Nome do usuário
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Core.UserDto.From(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User)">
+            <summary>
+            Obtém uma instância de DTO de usuário a partir de uma entidade
+            </summary>
+            <param name="entity"></param>
+            <returns>DTO de usuário</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Errors.ErrorMessageDto">
+            <summary>
+            Modelo de mensagem de erro
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Errors.ErrorMessageDto.Message">
+            <summary>
+            Mensagem de erro
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto">
+            <summary>
+            Modelo de dados representando o resultado da autenticação que tem como produto um JWT
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto.Token">
+            <summary>
+            JWT
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto.Expires">
+            <summary>
+            Data e horário de expiração do JWT
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto.Name">
+            <summary>
+            Nome do usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto.Username">
+            <summary>
+            Nome de sistema do usuário
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto.UserId">
+            <summary>
+            ID do usuário no sistema
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security.JwtAuthenticationResultDto.From(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security.JwtAuthenticationResult)">
+            <summary>
+            Cria um DTO de autenticação baseado em um token resultante do processo de autenticação
+            </summary>
+            <param name="jwtAuthenticationResult">Entidade de resultado de autenticação que tem como produto um JWT</param>
+            <returns>DTO de resultado da autenticação</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter">
+            <summary>
+            Filtro de exceções
+            </summary>
+        </member>
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter.logger">
+            <summary>
+            Serviço de log
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter.#ctor(Microsoft.Extensions.Logging.ILogger{TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter})">
+            <summary>
+            Construtor
+            </summary>
+            <param name="logger">Serviço de log</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter.OnException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            Executor do filtro ao capturar uma exceção
+            </summary>
+            <param name="context">Contexto da exceção</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter.LogException(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext)">
+            <summary>
+            Realiza o log da exceção
+            </summary>
+            <param name="exceptionContext">Contexto da exceção</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter.BuildResponse(Microsoft.AspNetCore.Mvc.Filters.ExceptionContext,System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Constrói a resposta 
+            </summary>
+            <param name="context">Contexto da exceção</param>
+            <param name="statusCode">Código do status da resposta</param>
+            <param name="errorMessage">Mensagem de erro da resposta</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger.AuthenticationRequirementOperationFilter">
+            <summary>
+            Filtro de autenticação JWT para as operações listadas
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger.AuthenticationRequirementOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Aplica o filtro de autenticação para aoperações
+            </summary>
+            <param name="operation">Operação</param>
+            <param name="context">Contexto</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger.RemoveVersionFromParameterOperationFilter">
+            <summary>
+            Remove o parâmetro obrigatório de versão da API da query string
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger.RemoveVersionFromParameterOperationFilter.Apply(Microsoft.OpenApi.Models.OpenApiOperation,Swashbuckle.AspNetCore.SwaggerGen.OperationFilterContext)">
+            <summary>
+            Aplica o filtro de operação de remoção de parâmetro de versão da API da query string
+            </summary>
+            <param name="operation">Operação</param>
+            <param name="context">Contexto</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger.ReplaceVersionWithExactValueInPathDocumentFilter">
+            <summary>
+            Filtro de versão do documentação da API para o Swagger
+            </summary>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup">
+            <summary>
+            Classe de inicialização da aplciação
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Inicializa a aplicação
+            </summary>
+            <param name="configuration">Configuração da aplicação</param>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configuration">
+            <summary>
+            Configuração da aplicação
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Configura os serviços da aplicação
+            </summary>
+            <param name="services">Coleção de serviços</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Configura o pipeline HTTP da API
+            </summary>
+            <param name="app">Construtor da aplicação</param>
+            <param name="env">Ambiente do host</param>
+        </member>
+    </members>
+</doc>
