@@ -5,15 +5,10 @@ using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core;
 namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions
 {
     /// <summary>
-    /// Modelo de leilão
+    /// Modelo de entrada de dados para criação de leilão
     /// </summary>
-    public class AuctionDto
+    public class CreateAuctionInputDto
     {
-        /// <summary>
-        /// ID do leilão
-        /// </summary>
-        public string Id { get; set; }
-
         /// <summary>
         /// Nome do leilão
         /// </summary>
@@ -40,28 +35,9 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions
         public bool IsUsed { get; set; }
 
         /// <summary>
-        /// Usuário responsável pelo leilão
+        /// Identificador do usuário responsável
         /// </summary>
-        public AuctionResponsibleUserDto Responsible { get; set; }
-
-        /// <summary>
-        /// Obtém um DTO de leilão a partir de uma entidade de leilão
-        /// </summary>
-        /// <param name="entity">Entidade de leilão que será transformada em DTO</param>
-        /// <returns>DTO de leilão</returns>
-        public static AuctionDto From(Auction entity)
-        {
-            return new AuctionDto
-            {
-                Close = entity.Close,
-                Id = entity.Id,
-                InitialBid = entity.InitialBid,
-                IsUsed = entity.IsUsed,
-                Name = entity.Name,
-                Open = entity.Open,
-                Responsible = AuctionResponsibleUserDto.From(entity.Responsible)
-            };
-        }
+        public string ResponsibleUserId { get; set; }
 
         /// <summary>
         /// Cria uma instância de DTO de leilão em uma instância da entidade leilão
@@ -73,7 +49,6 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions
             return new Auction
             {
                 Close = Close,
-                Id = Id,
                 InitialBid = InitialBid,
                 IsUsed = IsUsed,
                 Name = Name,

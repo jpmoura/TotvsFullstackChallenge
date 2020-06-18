@@ -1,4 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,11 +18,18 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Security
     public class JwtAuthenticationService : BaseAuthenticationService, IJwtAuthenticationService
     {
         /// <summary>
+        /// Configurações da aplicação
+        /// </summary>
+        private readonly IConfiguration configuration;
+
+        /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="userService">Serviço de usuário</param>
-        public JwtAuthenticationService(IUserService userService) : base(userService)
+        /// <param name="configuration">Configurações da aplicação</param>
+        public JwtAuthenticationService(IUserService userService, IConfiguration configuration) : base(userService)
         {
+            this.configuration = configuration;
         }
 
         public new async Task<JwtAuthenticationResult> AuthenticateAsync(string username, string password)
@@ -48,7 +56,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Security
         private SecurityToken GenerateJwt(User user)
         {
             JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-            byte[] key = Encoding.ASCII.GetBytes("obterUmaChaveDaConfiguracao"); // pegar string das configurações
+            byte[] key = Encoding.ASCII.GetBytes(configuration["Security:Secret"]);
             DateTime expirationDate = DateTime.UtcNow.AddDays(1);
 
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor

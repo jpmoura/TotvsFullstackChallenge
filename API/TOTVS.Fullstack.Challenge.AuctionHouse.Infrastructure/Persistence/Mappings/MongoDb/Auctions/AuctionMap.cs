@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.IdGenerators;
 using MongoDB.Bson.Serialization.Serializers;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Auctions;
 
@@ -18,9 +19,9 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Mapp
             BsonClassMap.RegisterClassMap<Auction>(map =>
             {
                 map.AutoMap();
-                map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
+                map.MapIdMember(auction => auction.Id);
                 map.SetIgnoreExtraElements(true);
-                map.MapIdProperty(auction => auction.Id);
+                map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId)).SetIdGenerator(StringObjectIdGenerator.Instance);
                 map.MapMember(auction => auction.Name).SetIsRequired(true);
                 map.MapMember(auction => auction.InitialBid).SetIsRequired(true);
                 map.MapMember(auction => auction.Open).SetIsRequired(true);

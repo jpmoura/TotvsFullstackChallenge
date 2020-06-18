@@ -35,7 +35,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Security
 
             if (user == null)
             {
-                throw new InvalidParameterException(nameof(username));
+                throw new ResourceNotFoundException(typeof(User), nameof(username));
             }
 
             if (!user.IsActive)

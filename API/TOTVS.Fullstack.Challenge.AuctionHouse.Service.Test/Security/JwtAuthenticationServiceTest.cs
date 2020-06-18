@@ -1,4 +1,5 @@
 ﻿using AutoFixture.Xunit2;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using System;
 using System.Threading.Tasks;
@@ -24,11 +25,12 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             }
 
             [Theory, AutoMoqData]
-            public async Task UsuarioValido_RetornaJwtAuthenticationResult(string username, string password, User user, [Frozen] Mock<IUserService> userService, JwtAuthenticationService sut)
+            public async Task UsuarioValido_RetornaJwtAuthenticationResult(string username, string password, string configValue, User user, [Frozen] Mock<IConfiguration> configuration, [Frozen] Mock<IUserService> userService, JwtAuthenticationService sut)
             {
                 DateTime minimumExpirationDateTime = DateTime.Now.AddDays(1);
                 user.Password = password;
 
+                configuration.SetupGet(mock => mock[It.IsAny<string>()]).Returns(configValue);
                 userService.Setup(mock => mock.GetByUsernameAsync(It.IsAny<string>())).ReturnsAsync(user);
 
                 JwtAuthenticationResult jwtAuthenticationResultReturned = await sut.AuthenticateAsync(username, password);

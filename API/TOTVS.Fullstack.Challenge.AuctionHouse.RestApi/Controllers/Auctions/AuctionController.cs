@@ -24,6 +24,8 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
     [Authorize]
     [ApiController]
     [ApiVersion("1")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     [Route("api/v{version:ApiVersion}/[controller]")]
     public class AuctionController : ControllerBase
     {
@@ -87,23 +89,26 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         /// <summary>
         /// Cria um leilão
         /// </summary>
-        /// <param name="newAuction">Modelo do leilão a ser criado</param>
+        /// <param name="newAuctionDto">Modelo do leilão a ser criado</param>
         /// <returns>Leilão criado</returns>
         [HttpPost]
         [SwaggerResponse((int)HttpStatusCode.Created, "Leilão criado com sucesso", typeof(AuctionDto))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, "Parâmetro(s) de entrada inválido(s)", typeof(ErrorMessageDto))]
-        public async Task<ActionResult<AuctionDto>> Create([FromBody] AuctionDto newAuction)
+        public async Task<ActionResult<AuctionDto>> Create([FromBody] CreateAuctionInputDto newAuctionDto, ApiVersion apiVersion)
         {
-            User responsible = await userService.GetByIdAsync(newAuction.Responsible.Id);
+            CommonValidator.EnforceNotNull(newAuctionDto, nameof(newAuctionDto));
+
+            User responsible = await userService.GetByIdAsync(newAuctionDto.ResponsibleUserId);
 
             if (responsible == null)
             {
-                throw new InvalidParameterException(nameof(newAuction.Responsible));
+                throw new InvalidParameterException(nameof(newAuctionDto.ResponsibleUserId));
             }
 
-            await auctionService.CreateAsync(newAuction.To(responsible));
+            Auction newAuction = newAuctionDto.To(responsible);
+            await auctionService.CreateAsync(newAuction);
 
-            return CreatedAtAction("GetById", null); // recuperar o objeto criado e inserir aqui
+            return CreatedAtAction(nameof(GetById), new { id = newAuction.Id, version = apiVersion.ToString() }, AuctionDto.From(newAuction));
         }
 
         /// <summary>
@@ -119,13 +124,12 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         public async Task<IActionResult> Update(string id, [FromBody] AuctionDto auctionToUpdate)
         {
             Auction auction = await auctionService.GetByIdAsync(id);
-
             CommonValidator.EnforceResourceFound(auction, typeof(Auction), id);
 
+            User responsible = await userService.GetByIdAsync(auctionToUpdate.Responsible?.Id);
+            CommonValidator.EnforceResourceFound(responsible, typeof(User), nameof(auctionToUpdate.Responsible.Id));
 
-            // atualizar dados da auction
-
-            Auction updatedAuction = await auctionService.UpdateAsync(auction);
+            Auction updatedAuction = await auctionService.UpdateAsync(auctionToUpdate.To(responsible));
 
             return Ok(AuctionDto.From(updatedAuction));
         }

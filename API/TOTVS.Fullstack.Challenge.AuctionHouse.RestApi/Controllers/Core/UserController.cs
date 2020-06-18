@@ -13,6 +13,7 @@ using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Security;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Core;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Errors;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security;
+using TOTVS.Fullstack.Challenge.AuctionHouse.Service.Validations;
 
 namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
 {
@@ -22,6 +23,8 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
     [Authorize]
     [ApiController]
     [ApiVersion("1")]
+    [Consumes("application/json")]
+    [Produces("application/json")]
     [Route("api/v{version:ApiVersion}/[controller]")]
     public class UserController : ControllerBase
     {
@@ -36,36 +39,30 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
         private readonly IJwtAuthenticationService jwtAuthenticationService;
 
         /// <summary>
-        /// Serviço de log
-        /// </summary>
-        private readonly ILogger<UserController> logger;
-
-        /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="userService">Serviço de usuário</param>
         /// <param name="jwtAuthenticationService">Serviço de autenticação com JWT</param>
-        /// <param name="logger">Serviço de log</param>
-        public UserController(IUserService userService, IJwtAuthenticationService jwtAuthenticationService, ILogger<UserController> logger)
+        public UserController(IUserService userService, IJwtAuthenticationService jwtAuthenticationService)
         {
             this.userService = userService;
             this.jwtAuthenticationService = jwtAuthenticationService;
-            this.logger = logger;
         }
 
         /// <summary>
         /// Autentica um usuário
         /// </summary>
-        /// <param name="username">Nome de usuário no sistema</param>
-        /// <param name="password">Senha do usuário</param>
+        /// <param name="authenticationInputDto">Modelo de entrada de dados de autenticação</param>
         [AllowAnonymous]
         [HttpPost]
         [SwaggerResponse((int)HttpStatusCode.OK, "Usuário atenticado", typeof(JwtAuthenticationResultDto))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, "Parâmetro(s) de entrada inválido(s)", typeof(ErrorMessageDto))]
         [Route("Authenticate")]
-        public async Task<ActionResult<JwtAuthenticationResultDto>> Authenticate(string username, string password)
+        public async Task<ActionResult<JwtAuthenticationResultDto>> Authenticate(AuthenticationInputDto authenticationInputDto)
         {
-            JwtAuthenticationResult jwtAuthenticationResult = await jwtAuthenticationService.AuthenticateAsync(username, password);
+            CommonValidator.EnforceNotNull(authenticationInputDto, nameof(authenticationInputDto));
+
+            JwtAuthenticationResult jwtAuthenticationResult = await jwtAuthenticationService.AuthenticateAsync(authenticationInputDto.Username, authenticationInputDto.Password);
 
             return Ok(JwtAuthenticationResultDto.From(jwtAuthenticationResult));
         }
