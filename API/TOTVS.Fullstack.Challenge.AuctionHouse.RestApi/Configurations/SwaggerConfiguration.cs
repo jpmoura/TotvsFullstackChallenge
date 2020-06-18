@@ -39,7 +39,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations
                     License = new OpenApiLicense
                     {
                         Name = "MIT",
-                        Url = new Uri("https://choosealicense.com/licenses/mit/"),
+                        Url = new Uri("https://github.com/jpmoura/TotvsFullstackChallenge/blob/master/LICENSE"),
                     }
                 });
 

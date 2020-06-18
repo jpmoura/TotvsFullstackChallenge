@@ -9,6 +9,11 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger
     /// </summary>
     public class ReplaceVersionWithExactValueInPathDocumentFilter : IDocumentFilter
     {
+        /// <summary>
+        /// Aplica o filtro de documentação de API para o swagger
+        /// </summary>
+        /// <param name="swaggerDoc">Documentação</param>
+        /// <param name="context">Contexto</param>
         public void Apply(OpenApiDocument swaggerDoc, DocumentFilterContext context)
         {
             OpenApiPaths toReplaceWith = new OpenApiPaths();
