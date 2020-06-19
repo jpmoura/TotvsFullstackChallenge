@@ -73,7 +73,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
         /// <returns>Lista paginada de usuários cadastrados</returns>
         [HttpGet]
         [SwaggerResponse((int)HttpStatusCode.OK, "Leilões cadastrados", typeof(IEnumerable<UserDto>))]
-        public IActionResult Index(Pagination pagination)
+        public IActionResult Index([FromQuery] Pagination pagination)
         {
             return Ok(userService.List(pagination).AsEnumerable().Select(user => UserDto.From(user)));
         }
