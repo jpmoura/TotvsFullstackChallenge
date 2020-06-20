@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,21 +39,14 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         private readonly IUserService userService;
 
         /// <summary>
-        /// Serviço de log
-        /// </summary>
-        private readonly ILogger<AuctionController> logger;
-
-        /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="auctionService">Serviço de leilão</param>
         /// <param name="userService">Serviço de usuário</param>
-        /// <param name="logger">Serviço de log</param>
-        public AuctionController(IAuctionService auctionService, IUserService userService, ILogger<AuctionController> logger)
+        public AuctionController(IAuctionService auctionService, IUserService userService)
         {
             this.auctionService = auctionService;
             this.userService = userService;
-            this.logger = logger;
         }
 
         /// <summary>
@@ -90,6 +82,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         /// Cria um leilão
         /// </summary>
         /// <param name="newAuctionDto">Modelo do leilão a ser criado</param>
+        /// <param name="apiVersion">Versão da API. Adicionado automaticamente.</param>
         /// <returns>Leilão criado</returns>
         [HttpPost]
         [SwaggerResponse((int)HttpStatusCode.Created, "Leilão criado com sucesso", typeof(AuctionDto))]

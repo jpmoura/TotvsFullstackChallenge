@@ -48,18 +48,12 @@
             Serviço de usuário
             </summary>
         </member>
-        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.logger">
-            <summary>
-            Serviço de log
-            </summary>
-        </member>
-        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService,TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService,Microsoft.Extensions.Logging.ILogger{TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController})">
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService,TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService)">
             <summary>
             Construtor
             </summary>
             <param name="auctionService">Serviço de leilão</param>
             <param name="userService">Serviço de usuário</param>
-            <param name="logger">Serviço de log</param>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Index(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
             <summary>
@@ -80,6 +74,7 @@
             Cria um leilão
             </summary>
             <param name="newAuctionDto">Modelo do leilão a ser criado</param>
+            <param name="apiVersion">Versão da API. Adicionado automaticamente.</param>
             <returns>Leilão criado</returns>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Update(System.String,TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.AuctionDto)">
@@ -426,31 +421,31 @@
         </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup">
             <summary>
-            Classe de inicialização da aplciação
+            Classe de inicializa��o da aplcia��o
             </summary>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Inicializa a aplicação
+            Inicializa a aplica��o
             </summary>
-            <param name="configuration">Configuração da aplicação</param>
+            <param name="configuration">Configura��o da aplica��o</param>
         </member>
         <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configuration">
             <summary>
-            Configuração da aplicação
+            Configura��o da aplica��o
             </summary>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Configura os serviços da aplicação
+            Configura os servi�os da aplica��o
             </summary>
-            <param name="services">Coleção de serviços</param>
+            <param name="services">Cole��o de servi�os</param>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             Configura o pipeline HTTP da API
             </summary>
-            <param name="app">Construtor da aplicação</param>
+            <param name="app">Construtor da aplica��o</param>
             <param name="env">Ambiente do host</param>
         </member>
     </members>

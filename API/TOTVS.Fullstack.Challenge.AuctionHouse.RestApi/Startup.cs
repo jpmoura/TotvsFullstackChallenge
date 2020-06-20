@@ -12,28 +12,28 @@ using TOTVS.Fullstack.Challenge.AuctionHouse.Service;
 namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
 {
     /// <summary>
-    /// Classe de inicialização da aplciação
+    /// Classe de inicializaï¿½ï¿½o da aplciaï¿½ï¿½o
     /// </summary>
     public class Startup
     {
         /// <summary>
-        /// Inicializa a aplicação
+        /// Inicializa a aplicaï¿½ï¿½o
         /// </summary>
-        /// <param name="configuration">Configuração da aplicação</param>
+        /// <param name="configuration">Configuraï¿½ï¿½o da aplicaï¿½ï¿½o</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         /// <summary>
-        /// Configuração da aplicação
+        /// Configuraï¿½ï¿½o da aplicaï¿½ï¿½o
         /// </summary>
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Configura os serviços da aplicação
+        /// Configura os serviï¿½os da aplicaï¿½ï¿½o
         /// </summary>
-        /// <param name="services">Coleção de serviços</param>
+        /// <param name="services">Coleï¿½ï¿½o de serviï¿½os</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiVersioning(options =>
@@ -62,7 +62,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
         /// <summary>
         /// Configura o pipeline HTTP da API
         /// </summary>
-        /// <param name="app">Construtor da aplicação</param>
+        /// <param name="app">Construtor da aplicaï¿½ï¿½o</param>
         /// <param name="env">Ambiente do host</param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

@@ -15,7 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{31AC11B1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test", "TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test\TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.csproj", "{8EC553D2-B874-463D-BD9E-918701D4EE62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TOTVS.Fullstack.Challenge.AuctionHouse.Tests.Util", "TOTVS.Fullstack.Challenge.AuctionHouse.Tests.Util\TOTVS.Fullstack.Challenge.AuctionHouse.Tests.Util.csproj", "{DE524A9F-F961-4B91-B776-D2397B7D57F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TOTVS.Fullstack.Challenge.AuctionHouse.Tests.Util", "TOTVS.Fullstack.Challenge.AuctionHouse.Tests.Util\TOTVS.Fullstack.Challenge.AuctionHouse.Tests.Util.csproj", "{DE524A9F-F961-4B91-B776-D2397B7D57F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tasks", "Tasks", "{9D316E97-51C6-47C1-8FD3-578BD6FE822B}"
+	ProjectSection(SolutionItems) = preProject
+		tasks.cake = tasks.cake
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

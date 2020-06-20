@@ -17,6 +17,13 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations
     /// </summary>
     public static class SwaggerConfiguration
     {
+        private const string githubBaseUrl = "github.com/jpmoura";
+
+        private static string GetGitHubUrl(string relativePath = null)
+        {
+            return $"https://{githubBaseUrl}/{relativePath}";
+        }
+
         /// <summary>
         /// Aplica as configurações do Swagger na camada de serviços
         /// </summary>
@@ -34,12 +41,12 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations
                     {
                         Name = "João Pedro Santos de Moura",
                         Email = "moura.joaopedro@gmail.com",
-                        Url = new Uri("https://github.com/jpmoura"),
+                        Url = new Uri(GetGitHubUrl()),
                     },
                     License = new OpenApiLicense
                     {
                         Name = "MIT",
-                        Url = new Uri("https://github.com/jpmoura/TotvsFullstackChallenge/blob/master/LICENSE"),
+                        Url = new Uri(GetGitHubUrl("TotvsFullstackChallenge/blob/master/LICENSE")),
                     }
                 });
 
