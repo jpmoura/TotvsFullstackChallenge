@@ -43,6 +43,16 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Security
             }
 
             [Theory, AutoMoqData]
+            public async Task UsernameValido_SenhaValida_UsuarioNaoEncontrado_LancaResourceNotFoundException(string username, string password, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
+            {
+                userService.Setup(mock => mock.GetByUsernameAsync(It.IsAny<string>())).ReturnsAsync((User)null);
+
+                await Assert.ThrowsAsync<ResourceNotFoundException>(() => sut.AuthenticateAsync(username, password));
+
+                userService.Verify(mock => mock.GetByUsernameAsync(It.IsAny<string>()), Times.Once);
+            }
+
+            [Theory, AutoMoqData]
             public async Task UsernameValido_SenhaValida_UsuarioEncontrado_UsuarioDesativado_LancaInvalidParameterException(string username, string password, User user, [Frozen] Mock<IUserService> userService, BaseAuthenticationService sut)
             {
                 user.IsActive = false;
