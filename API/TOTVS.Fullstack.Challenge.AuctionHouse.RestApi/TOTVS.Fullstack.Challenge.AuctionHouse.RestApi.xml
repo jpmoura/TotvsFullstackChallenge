@@ -399,6 +399,31 @@
             Filtro de versão do documentação da API para o Swagger
             </summary>
         </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.Swagger.ReplaceVersionWithExactValueInPathDocumentFilter.Apply(Microsoft.OpenApi.Models.OpenApiDocument,Swashbuckle.AspNetCore.SwaggerGen.DocumentFilterContext)">
+            <summary>
+            Aplica o filtro de documentação de API para o swagger
+            </summary>
+            <param name="swaggerDoc">Documentação</param>
+            <param name="context">Contexto</param>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Program">
+            <summary>
+            Classe principal da aplicação
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Program.Main(System.String[])">
+            <summary>
+            Método principal da aplicação
+            </summary>
+            <param name="args">Argumentos da aplicação</param>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            Cria o construtor do host da aplicação
+            </summary>
+            <param name="args">Argumentos</param>
+            <returns>Construtor de host da aplicação</returns>
+        </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup">
             <summary>
             Classe de inicialização da aplciação
