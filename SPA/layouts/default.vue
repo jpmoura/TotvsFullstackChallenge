@@ -1,6 +1,7 @@
 <template>
   <v-app dark>
     <v-navigation-drawer
+      v-if="$auth.loggedIn"
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
