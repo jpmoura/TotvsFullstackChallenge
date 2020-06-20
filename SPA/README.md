@@ -2,6 +2,10 @@
 
 > Frontend do desafio fullstack TOTVS
 
+## Configurações
+
+É necessário a criação de um arquivo `env` com uma variável chamada `API_BASE_URL` com a URL base da API a ser consumida. Por exemplo, utilizando a API do desafio um possível valor dessa variável seria `https://localhost:44386/api`.
+
 ## Build Setup
 
 ```bash
