@@ -421,32 +421,33 @@
         </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup">
             <summary>
-            Classe de inicializa��o da aplcia��o
+            Classe de inicializaçãoo da aplicaçãoo
             </summary>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
-            Inicializa a aplica��o
+            Inicializa a aplicação
             </summary>
-            <param name="configuration">Configura��o da aplica��o</param>
+            <param name="configuration">Configuração da aplicação</param>
         </member>
         <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configuration">
             <summary>
-            Configura��o da aplica��o
+            Configuração da aplicação
             </summary>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            Configura os servi�os da aplica��o
+            Configura os serviços da aplicação
             </summary>
-            <param name="services">Cole��o de servi�os</param>
+            <param name="services">Coleção de serviços</param>
         </member>
-        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfiguration)">
             <summary>
             Configura o pipeline HTTP da API
             </summary>
-            <param name="app">Construtor da aplica��o</param>
+            <param name="app">Construtor da aplicação</param>
             <param name="env">Ambiente do host</param>
+            <param name="configuration">Configurações da aplicação</param>
         </member>
     </members>
 </doc>

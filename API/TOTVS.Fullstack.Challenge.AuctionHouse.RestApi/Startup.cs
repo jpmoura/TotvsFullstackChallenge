@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Installer;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters;
@@ -12,28 +13,28 @@ using TOTVS.Fullstack.Challenge.AuctionHouse.Service;
 namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
 {
     /// <summary>
-    /// Classe de inicializa��o da aplcia��o
+    /// Classe de inicializaçãoo da aplicaçãoo
     /// </summary>
     public class Startup
     {
         /// <summary>
-        /// Inicializa a aplica��o
+        /// Inicializa a aplicação
         /// </summary>
-        /// <param name="configuration">Configura��o da aplica��o</param>
+        /// <param name="configuration">Configuração da aplicação</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
         /// <summary>
-        /// Configura��o da aplica��o
+        /// Configuração da aplicação
         /// </summary>
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Configura os servi�os da aplica��o
+        /// Configura os serviços da aplicação
         /// </summary>
-        /// <param name="services">Cole��o de servi�os</param>
+        /// <param name="services">Coleção de serviços</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiVersioning(options =>
@@ -62,16 +63,22 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
         /// <summary>
         /// Configura o pipeline HTTP da API
         /// </summary>
-        /// <param name="app">Construtor da aplica��o</param>
+        /// <param name="app">Construtor da aplicação</param>
         /// <param name="env">Ambiente do host</param>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <param name="configuration">Configurações da aplicação</param>
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            Boolean.TryParse(configuration["Network:UseHttps"], out bool useHttps);
+
+            if (useHttps)
+            {
+                app.UseHttpsRedirection();
+            }
 
             SwaggerConfiguration.Apply(app);
 

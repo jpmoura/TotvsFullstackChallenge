@@ -15,7 +15,9 @@ Essa API também conta com uma rota de documentação via [Swagger](https://swag
 
 ## 1. Configurações
 
-É possível editar a string usada para criação e leitura dos JWT criados e utilizados na autenticação. Para isso basta editar o arquivo [appsettings.json](TOTVS.Fullstack.Challenge.AuctionHouse.RestApi\appsettings.json). Além disso é necessário que o servidor tenha um certificado SSL válido visto que a aplicação conta com redireção para HTTPS. É possível editar esse comportamento comentando ou removendo a linha 74 do arquivo [Startup.cs](TOTVS.Fullstack.Challenge.AuctionHouse.RestApi\Startup.cs).
+É possível editar a chave usada para criação e leitura dos JWT utilizados na autenticação. Para isso basta editar o valor da chave `Secret` na seção de `Security` arquivo [appsettings.json](TOTVS.Fullstack.Challenge.AuctionHouse.RestApi\appsettings.json).
+
+É necessário que o servidor tenha um certificado SSL válido visto que a aplicação conta com redireção para HTTPS por padrão. Esse comportamento também pode ser alterado editando o arquivo [appsettings.json](TOTVS.Fullstack.Challenge.AuctionHouse.RestApi\appsettings.json) e modificando o valor da chave `UseHttps` na seção de `Network`.
 
 ## 2. Instruções
 
