@@ -4,6 +4,27 @@
         <name>TOTVS.Fullstack.Challenge.AuctionHouse.Domain</name>
     </assembly>
     <members>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.EnvironmentName">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.EnvironmentName.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.EnvironmentName.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.EnvironmentName.Testing">
+            <summary>
+              Looks up a localized string similar to Testing.
+            </summary>
+        </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Constants.ErrorMessage">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.

@@ -19,7 +19,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
         public class CreateAsync
         {
             [Theory, AutoMoqData]
-            public async Task LeilaoNulo_LancaInvalidParameterException([Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen]Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
+            public async Task LeilaoNulo_LancaInvalidParameterException([Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
             {
                 await Assert.ThrowsAsync<InvalidParameterException>(() => sut.CreateAsync(null));
                 auctionValidator.Verify(mock => mock.Validate(It.IsAny<ValidationContext>()), Times.Never);
@@ -27,7 +27,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
             }
 
             [Theory, AutoMoqData]
-            public async Task LeilaoPreenchido_LeilaoInvalido_LancaValidationException(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen]Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
+            public async Task LeilaoPreenchido_LeilaoInvalido_LancaValidationException(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
             {
                 auctionValidator.Setup(mock => mock.Validate(It.IsAny<ValidationContext>())).Throws(new ValidationException(string.Empty));
 
@@ -37,7 +37,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
             }
 
             [Theory, AutoMoqData]
-            public async Task LeilaoPreenchido_LeilaoValido_RetornaVoid(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen]Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
+            public async Task LeilaoPreenchido_LeilaoValido_RetornaVoid(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
             {
                 auctionValidator.Setup(mock => mock.Validate(It.IsAny<ValidationContext>())).Returns(new ValidationResult());
 
@@ -107,7 +107,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
             public void PaginacaoInvalida_LancaValidationException(Pagination pagination, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Pagination>> paginationValidator, AuctionService sut)
             {
                 paginationValidator.Setup(mock => mock.Validate(It.IsAny<ValidationContext>())).Throws(new ValidationException(string.Empty));
-                
+
                 Assert.Throws<ValidationException>(() => sut.List(pagination));
                 paginationValidator.Verify(mock => mock.Validate(It.IsAny<ValidationContext>()), Times.Once);
                 auctionRepository.Verify(mock => mock.List(It.IsAny<Pagination>()), Times.Never);
@@ -129,7 +129,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
         public class UpdateAsync
         {
             [Theory, AutoMoqData]
-            public async Task LeilaoNulo_LancaInvalidParameterException([Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen]Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
+            public async Task LeilaoNulo_LancaInvalidParameterException([Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
             {
                 await Assert.ThrowsAsync<InvalidParameterException>(() => sut.UpdateAsync(null));
                 auctionValidator.Verify(mock => mock.Validate(It.IsAny<ValidationContext>()), Times.Never);
@@ -137,7 +137,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
             }
 
             [Theory, AutoMoqData]
-            public async Task LeilaoPreenchido_LeilaoInvalido_LancaValidationException(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen]Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
+            public async Task LeilaoPreenchido_LeilaoInvalido_LancaValidationException(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
             {
                 auctionValidator.Setup(mock => mock.Validate(It.IsAny<ValidationContext>())).Throws(new ValidationException(string.Empty));
 
@@ -147,7 +147,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test.Auctions
             }
 
             [Theory, AutoMoqData]
-            public async Task LeilaoPreenchido_LeilaoValido_RetornaLeilaoAtualizado(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen]Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
+            public async Task LeilaoPreenchido_LeilaoValido_RetornaLeilaoAtualizado(Auction auction, [Frozen] Mock<IRepository<Auction>> auctionRepository, [Frozen] Mock<IValidator<Auction>> auctionValidator, AuctionService sut)
             {
                 auctionValidator.Setup(mock => mock.Validate(It.IsAny<ValidationContext>())).Returns(new ValidationResult());
 

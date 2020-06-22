@@ -16,19 +16,33 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Mapp
         /// </summary>
         public static void Configure()
         {
-            BsonClassMap.RegisterClassMap<Auction>(map =>
+            if (BsonClassMap.IsClassMapRegistered(typeof(Auction)))
             {
-                map.AutoMap();
-                map.MapIdMember(auction => auction.Id);
-                map.SetIgnoreExtraElements(true);
-                map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId)).SetIdGenerator(StringObjectIdGenerator.Instance);
-                map.MapMember(auction => auction.Name).SetIsRequired(true);
-                map.MapMember(auction => auction.InitialBid).SetIsRequired(true);
-                map.MapMember(auction => auction.Open).SetIsRequired(true);
-                map.MapMember(auction => auction.Close).SetIsRequired(true);
-                map.MapMember(auction => auction.IsUsed).SetIsRequired(true);
-                map.MapMember(auction => auction.Responsible).SetIsRequired(true);
-            });
+                return;
+            }
+
+            try
+            {
+                BsonClassMap.RegisterClassMap<Auction>(map =>
+                {
+                    map.AutoMap();
+                    map.MapIdMember(auction => auction.Id);
+                    map.SetIgnoreExtraElements(true);
+                    map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId)).SetIdGenerator(StringObjectIdGenerator.Instance);
+                    map.MapMember(auction => auction.Name).SetIsRequired(true);
+                    map.MapMember(auction => auction.InitialBid).SetIsRequired(true);
+                    map.MapMember(auction => auction.Open).SetIsRequired(true);
+                    map.MapMember(auction => auction.Close).SetIsRequired(true);
+                    map.MapMember(auction => auction.IsUsed).SetIsRequired(true);
+                    map.MapMember(auction => auction.Responsible).SetIsRequired(true);
+                });
+            }
+            catch
+            {
+                // Exceção ignorada porque a verificação no início do mapeamento não é suficiente
+                // Isso é necessáiro somente para executar os testes em paralelo
+                // Se deve ao fato do objeto de registo é estático, logo sofre de concorrência entre cada teste de API
+            }
         }
     }
 }

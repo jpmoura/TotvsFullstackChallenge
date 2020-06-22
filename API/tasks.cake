@@ -8,7 +8,8 @@ var target = Argument("target", "Run");
 /*  Caminho relativo dos projetos de teste */
 var testProjectsRelativePaths = new string[]
 {
-    "TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test"
+    "TOTVS.Fullstack.Challenge.AuctionHouse.Service.Test",
+    "TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Test"
 };
 
 /*  Configurações do Test Runner */

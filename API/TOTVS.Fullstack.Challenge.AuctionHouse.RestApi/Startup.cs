@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Installer;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations;
+using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Extensions.Host;
 using TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Service;
 
@@ -21,15 +22,22 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
         /// Inicializa a aplicação
         /// </summary>
         /// <param name="configuration">Configuração da aplicação</param>
-        public Startup(IConfiguration configuration)
+        /// <param name="webHostEnvironment">Ambiente em que o Web Host está sendo executado</param>
+        public Startup(IConfiguration configuration, IWebHostEnvironment webHostEnvironment)
         {
             Configuration = configuration;
+            WebHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
         /// Configuração da aplicação
         /// </summary>
         public IConfiguration Configuration { get; }
+
+        /// <summary>
+        /// Ambiente em que o Web Host está sendo executado
+        /// </summary>
+        public IWebHostEnvironment WebHostEnvironment { get; }
 
         /// <summary>
         /// Configura os serviços da aplicação
@@ -47,7 +55,12 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
 
             services.AddControllers();
 
-            AuthenticationConfiguration.Apply(services, Configuration);
+            // Desabilita autenticação e autorização para realização dos testes
+            if (!WebHostEnvironment.IsTesting())
+            {
+                AuthenticationConfiguration.Apply(services, Configuration);
+                AuthorizationConfiguration.Apply(services);
+            }
 
             services.AddMvc(config =>
             {
@@ -86,8 +99,12 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
 
             app.UseCors(corsPolicyBuilder => corsPolicyBuilder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseAuthentication();
-            app.UseAuthorization();
+            // Desativa autenticação para ambiente de testes
+            if (!env.IsTesting())
+            {
+                app.UseAuthentication();
+                app.UseAuthorization();
+            }
 
             app.UseEndpoints(endpoints =>
             {

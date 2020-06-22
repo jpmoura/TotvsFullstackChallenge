@@ -70,7 +70,6 @@ export default {
         }
       ],
       miniVariant: false,
-      right: true,
       title: 'TOTVS Fullstack Challenge | Auction House'
     }
   },

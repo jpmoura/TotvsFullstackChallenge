@@ -15,14 +15,28 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Mapp
         /// </summary>
         public static void Configure()
         {
-            BsonClassMap.RegisterClassMap<AuctionResponsibleUser>(map =>
+            if (BsonClassMap.IsClassMapRegistered(typeof(AuctionResponsibleUser)))
             {
-                map.AutoMap();
-                map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
-                map.SetIgnoreExtraElements(true);
-                map.MapIdProperty(auctionResponsibleUser => auctionResponsibleUser.Id);
-                map.MapMember(auctionResponsibleUser => auctionResponsibleUser.Name).SetIsRequired(true);
-            });
+                return;
+            }
+
+            try
+            {
+                BsonClassMap.RegisterClassMap<AuctionResponsibleUser>(map =>
+                {
+                    map.AutoMap();
+                    map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
+                    map.SetIgnoreExtraElements(true);
+                    map.MapIdProperty(auctionResponsibleUser => auctionResponsibleUser.Id);
+                    map.MapMember(auctionResponsibleUser => auctionResponsibleUser.Name).SetIsRequired(true);
+                });
+            }
+            catch
+            {
+                // Exceção ignorada porque a verificação no início do mapeamento não é suficiente
+                // Isso é necessáiro somente para executar os testes em paralelo
+                // Se deve ao fato do objeto de registo é estático, logo sofre de concorrência entre cada teste de API
+            }
         }
     }
 }

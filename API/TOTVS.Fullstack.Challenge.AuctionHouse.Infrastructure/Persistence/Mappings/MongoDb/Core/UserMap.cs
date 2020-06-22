@@ -16,17 +16,31 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Mapp
         /// </summary>
         public static void Configure()
         {
-            BsonClassMap.RegisterClassMap<User>(map =>
+            if (BsonClassMap.IsClassMapRegistered(typeof(User)))
             {
-                map.AutoMap();
-                map.MapIdMember(user => user.Id);
-                map.SetIgnoreExtraElements(true);
-                map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId)).SetIdGenerator(StringObjectIdGenerator.Instance);
-                map.MapMember(user => user.Username).SetIsRequired(true);
-                map.MapMember(user => user.Password).SetIsRequired(true);
-                map.MapMember(user => user.IsActive).SetIsRequired(true);
-                map.MapMember(user => user.Name).SetIsRequired(true);
-            });
+                return;
+            }
+
+            try
+            {
+                BsonClassMap.RegisterClassMap<User>(map =>
+                {
+                    map.AutoMap();
+                    map.MapIdMember(user => user.Id);
+                    map.SetIgnoreExtraElements(true);
+                    map.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId)).SetIdGenerator(StringObjectIdGenerator.Instance);
+                    map.MapMember(user => user.Username).SetIsRequired(true);
+                    map.MapMember(user => user.Password).SetIsRequired(true);
+                    map.MapMember(user => user.IsActive).SetIsRequired(true);
+                    map.MapMember(user => user.Name).SetIsRequired(true);
+                });
+            }
+            catch
+            {
+                // Exceção ignorada porque a verificação no início do mapeamento não é suficiente
+                // Isso é necessáiro somente para executar os testes em paralelo
+                // Se deve ao fato do objeto de registo é estático, logo sofre de concorrência entre cada teste de API
+            }
         }
     }
 }

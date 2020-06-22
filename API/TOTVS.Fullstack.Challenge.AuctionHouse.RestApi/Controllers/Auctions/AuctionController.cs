@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
@@ -20,7 +20,6 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
     /// <summary>
     /// Controller de leilão
     /// </summary>
-    [Authorize]
     [ApiController]
     [ApiVersion("1")]
     [Consumes("application/json")]
@@ -39,14 +38,21 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         private readonly IUserService userService;
 
         /// <summary>
+        /// Ambiente de execução da aplicação
+        /// </summary>
+        private readonly IWebHostEnvironment webHostEnvironment;
+
+        /// <summary>
         /// Construtor
         /// </summary>
         /// <param name="auctionService">Serviço de leilão</param>
         /// <param name="userService">Serviço de usuário</param>
-        public AuctionController(IAuctionService auctionService, IUserService userService)
+        /// <param name="webHostEnvironment">Ambiente de execução da aplicação</param>
+        public AuctionController(IAuctionService auctionService, IUserService userService, IWebHostEnvironment webHostEnvironment)
         {
             this.auctionService = auctionService;
             this.userService = userService;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
         /// <summary>
@@ -64,7 +70,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         /// <summary>
         /// Obtém um leilão
         /// </summary>
-        /// <param name="id">Identificador do leilão</param>
+        /// <param name="id">Identificador do leilão (Exatamente 24 caracteres)</param>
         /// <returns>Leilão encontrado</returns>
         [HttpGet("{id:length(24)}")]
         [SwaggerResponse((int)HttpStatusCode.OK, "Leilão encontrado", typeof(AuctionDto))]
@@ -98,7 +104,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
                 throw new InvalidParameterException(nameof(newAuctionDto.ResponsibleUserId));
             }
 
-            Auction newAuction = newAuctionDto.To(responsible);
+            Auction newAuction = newAuctionDto.To(responsible, webHostEnvironment);
             await auctionService.CreateAsync(newAuction);
 
             return CreatedAtAction(nameof(GetById), new { id = newAuction.Id, version = apiVersion.ToString() }, AuctionDto.From(newAuction));
@@ -131,7 +137,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions
         /// Deleta um leilão
         /// </summary>
         /// <param name="id">Identificador do leilão</param>
-        /// <returns></returns>
+        /// <returns>Confirmação de deleção</returns>
         [HttpDelete("{id:length(24)}")]
         [SwaggerResponse((int)HttpStatusCode.NoContent, "Leilão atualizado com sucesso", typeof(AuctionDto))]
         [SwaggerResponse((int)HttpStatusCode.NotFound, "Leilão não encontrado", typeof(ErrorMessageDto))]

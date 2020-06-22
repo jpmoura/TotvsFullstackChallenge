@@ -16,6 +16,17 @@
             <param name="serviceCollection">Coleção de serviços da aplicação</param>
             <param name="configuration">Configrações da aplicação</param>
         </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations.AuthorizationConfiguration">
+            <summary>
+            Classe que aplica as configurações de autorização da aplicação
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations.AuthorizationConfiguration.Apply(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Aplica as configurações de autorização
+            </summary>
+            <param name="serviceCollection">Coleção de serviços da aplicação</param>
+        </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations.SwaggerConfiguration">
             <summary>
             Classe que aplica as configurações do Swagger
@@ -48,12 +59,18 @@
             Serviço de usuário
             </summary>
         </member>
-        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService,TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService)">
+        <member name="F:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.webHostEnvironment">
+            <summary>
+            Ambiente de execução da aplicação
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.#ctor(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Auctions.IAuctionService,TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Services.Core.IUserService,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             Construtor
             </summary>
             <param name="auctionService">Serviço de leilão</param>
             <param name="userService">Serviço de usuário</param>
+            <param name="webHostEnvironment">Ambiente de execução da aplicação</param>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Index(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Helper.Pagination)">
             <summary>
@@ -66,7 +83,7 @@
             <summary>
             Obtém um leilão
             </summary>
-            <param name="id">Identificador do leilão</param>
+            <param name="id">Identificador do leilão (Exatamente 24 caracteres)</param>
             <returns>Leilão encontrado</returns>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Auctions.AuctionController.Create(TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.CreateAuctionInputDto,Microsoft.AspNetCore.Mvc.ApiVersion)">
@@ -90,7 +107,7 @@
             Deleta um leilão
             </summary>
             <param name="id">Identificador do leilão</param>
-            <returns></returns>
+            <returns>Confirmação de deleção</returns>
         </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core.UserController">
             <summary>
@@ -238,11 +255,12 @@
             Identificador do usuário responsável
             </summary>
         </member>
-        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.CreateAuctionInputDto.To(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User)">
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions.CreateAuctionInputDto.To(TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Models.Core.User,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             Cria uma instância de DTO de leilão em uma instância da entidade leilão
             </summary>
             <param name="responsible">Instância do usuário responsável pelo leilão</param>
+            <param name="webHostEnvironment">Ambiente de execução da aplicação</param>
             <returns>Instância da entitade leilão correspondente ao DTO usado na invocação do método</returns>
         </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Core.UserDto">
@@ -328,6 +346,18 @@
             </summary>
             <param name="jwtAuthenticationResult">Entidade de resultado de autenticação que tem como produto um JWT</param>
             <returns>DTO de resultado da autenticação</returns>
+        </member>
+        <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Extensions.Host.WebHostEnvironmentExtensions">
+            <summary>
+            Classe que agrupa os métodos de extensão relacionados à interface de WebHostEnvironment
+            </summary>
+        </member>
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Extensions.Host.WebHostEnvironmentExtensions.IsTesting(Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            Define se o ambiente de execução da aplicação é um ambiente de teste
+            </summary>
+            <param name="env">Ambiente do WebHost</param>
+            <returns>True se for um ambiente de teste e false caso contrário</returns>
         </member>
         <member name="T:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters.CustomExceptionFilter">
             <summary>
@@ -424,15 +454,21 @@
             Classe de inicializaçãoo da aplicaçãoo
             </summary>
         </member>
-        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+        <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
             <summary>
             Inicializa a aplicação
             </summary>
             <param name="configuration">Configuração da aplicação</param>
+            <param name="webHostEnvironment">Ambiente em que o Web Host está sendo executado</param>
         </member>
         <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.Configuration">
             <summary>
             Configuração da aplicação
+            </summary>
+        </member>
+        <member name="P:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.WebHostEnvironment">
+            <summary>
+            Ambiente em que o Web Host está sendo executado
             </summary>
         </member>
         <member name="M:TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">

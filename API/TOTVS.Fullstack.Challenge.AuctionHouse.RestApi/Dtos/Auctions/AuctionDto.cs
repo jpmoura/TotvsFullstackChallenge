@@ -51,6 +51,11 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Auctions
         /// <returns>DTO de leilão</returns>
         public static AuctionDto From(Auction entity)
         {
+            if (entity == null)
+            {
+                return null;
+            }
+
             return new AuctionDto
             {
                 Close = entity.Close,

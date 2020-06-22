@@ -19,7 +19,6 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
     /// <summary>
     /// Controller de usuário
     /// </summary>
-    [Authorize]
     [ApiController]
     [ApiVersion("1")]
     [Consumes("application/json")]
@@ -54,7 +53,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
         /// <param name="authenticationInputDto">Modelo de entrada de dados de autenticação</param>
         [AllowAnonymous]
         [HttpPost]
-        [SwaggerResponse((int)HttpStatusCode.OK, "Usuário atenticado", typeof(JwtAuthenticationResultDto))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Usuário autenticado", typeof(JwtAuthenticationResultDto))]
         [SwaggerResponse((int)HttpStatusCode.BadRequest, "Parâmetro(s) de entrada inválido(s)", typeof(ErrorMessageDto))]
         [Route("Authenticate")]
         public async Task<ActionResult<JwtAuthenticationResultDto>> Authenticate(AuthenticationInputDto authenticationInputDto)
@@ -72,7 +71,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Controllers.Core
         /// <param name="pagination">Parâmetros de paginação</param>
         /// <returns>Lista paginada de usuários cadastrados</returns>
         [HttpGet]
-        [SwaggerResponse((int)HttpStatusCode.OK, "Leilões cadastrados", typeof(IEnumerable<UserDto>))]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Usuários cadastrados", typeof(IEnumerable<UserDto>))]
         public IActionResult Index([FromQuery] Pagination pagination)
         {
             return Ok(userService.List(pagination).AsEnumerable().Select(user => UserDto.From(user)));

@@ -40,6 +40,11 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Dtos.Security
         /// <returns>DTO de resultado da autenticação</returns>
         public static JwtAuthenticationResultDto From(JwtAuthenticationResult jwtAuthenticationResult)
         {
+            if (jwtAuthenticationResult == null)
+            {
+                return null;
+            }
+
             return new JwtAuthenticationResultDto
             {
                 Expires = jwtAuthenticationResult.Expires,

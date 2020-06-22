@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Constants\EnvironmentName.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>EnvironmentName.resx</DependentUpon>
+    </Compile>
     <Compile Update="Constants\ErrorMessage.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -29,6 +34,10 @@
     <EmbeddedResource Update="Constants\ErrorMessage.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ErrorMessage.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Constants\EnvironmentName.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnvironmentName.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Constants\ValidationRuleSetName.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

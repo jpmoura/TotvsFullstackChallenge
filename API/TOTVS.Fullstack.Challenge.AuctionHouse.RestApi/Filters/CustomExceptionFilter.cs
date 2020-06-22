@@ -47,6 +47,9 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Filters
                 case ResourceNotFoundException _:
                     statusCode = HttpStatusCode.NotFound;
                     break;
+                case DisabledUserException _:
+                    statusCode = HttpStatusCode.Unauthorized;
+                    break;
                 default:
                     errorMessage = ErrorMessage.UnhandledException;
                     statusCode = HttpStatusCode.InternalServerError;

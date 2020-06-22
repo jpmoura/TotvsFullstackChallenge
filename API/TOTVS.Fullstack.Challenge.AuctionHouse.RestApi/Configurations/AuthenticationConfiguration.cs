@@ -57,7 +57,6 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi.Configurations
 
                         logger.LogError($"Exception on Authentication Challenge: {context.AuthenticateFailure}");
 
-
                         return Task.CompletedTask;
                     }
                 };
