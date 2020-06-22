@@ -69,7 +69,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.RestApi
 
             SwaggerConfiguration.Apply(services);
 
-            InfrastructureInstaller.Install(services);
+            InfrastructureInstaller.Install(services, Configuration);
             ServiceInstaller.Install(services);
         }
 

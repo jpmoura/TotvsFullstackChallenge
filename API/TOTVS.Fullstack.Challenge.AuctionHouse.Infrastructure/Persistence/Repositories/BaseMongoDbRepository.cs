@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Repo
         /// <summary>
         /// Nome da base de dados
         /// </summary>
-        protected virtual string DatabaseName => throw new NotImplementedException(); // pegar do arquivo de configuração
+        protected virtual string DatabaseName { get; }
 
         /// <summary>
         /// Propriedade que define o nome da coleção
@@ -32,9 +33,11 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Repo
         /// Construtor
         /// </summary>
         /// <param name="mongoDbContext">Contexto do MongoDB</param>
-        public BaseMongoDbRepository(IMongoDbContext mongoDbContext)
+        /// <param name="configuration">Configurações da aplicação</param>
+        public BaseMongoDbRepository(IMongoDbContext mongoDbContext, IConfiguration configuration)
         {
             this.mongoDbContext = mongoDbContext;
+            DatabaseName = configuration["MongoDb:DatabaseName"];
         }
 
         public IMongoCollection<TEntity> GetCollection()

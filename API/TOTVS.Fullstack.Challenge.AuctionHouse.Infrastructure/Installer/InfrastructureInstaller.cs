@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Contexts;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories;
@@ -20,17 +21,19 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Installer
         /// Instala todas as dependências de infraestrutura
         /// </summary>
         /// <param name="serviceCollection">Coleção de serviços da aplicação</param>
-        public static void Install(IServiceCollection serviceCollection)
+        /// <param name="configuration">Configurações da aplicação</param>
+        public static void Install(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             MongoDbMappingsInstaller.Install();
-            InstallPersistence(serviceCollection);
+            InstallPersistence(serviceCollection, configuration);
         }
 
         /// <summary>
         /// Instala todas as dependências relacionadas à persistência
         /// </summary>
         /// <param name="serviceCollection">Coleção de serviços da aplicação</param>
-        public static void InstallPersistence(IServiceCollection serviceCollection)
+        /// <param name="configuration">Configurações da aplicação</param>
+        public static void InstallPersistence(IServiceCollection serviceCollection, IConfiguration configuration)
         {
             // Contexto
             serviceCollection.AddSingleton<IMongoDbContext, MongoDbContext>();
@@ -40,7 +43,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Installer
             serviceCollection.AddSingleton<IUserRepository, UserRepository>();
 
             // Clientes
-            serviceCollection.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
+            serviceCollection.AddSingleton<IMongoClient>(new MongoClient(configuration["MongoDb:ConnectionString"]));
         }
     }
 }

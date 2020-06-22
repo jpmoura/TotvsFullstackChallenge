@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using System.Threading.Tasks;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Contexts;
 using TOTVS.Fullstack.Challenge.AuctionHouse.Domain.Contracts.Persistence.Repositories.Core;
@@ -8,11 +9,14 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Infrastructure.Persistence.Repo
 {
     public class UserRepository : BaseMongoDbRepository<User>, IUserRepository
     {
-        protected override string DatabaseName => "auctionHouse";
-
         protected override string CollectionName => "users";
 
-        public UserRepository(IMongoDbContext mongoDbContext) : base(mongoDbContext) { }
+        /// <summary>
+        /// Construtor
+        /// </summary>
+        /// <param name="mongoDbContext">Contexto do MongoDb</param>
+        /// <param name="configuration">Configurações da aplicação</param>
+        public UserRepository(IMongoDbContext mongoDbContext, IConfiguration configuration) : base(mongoDbContext, configuration) { }
 
         public async Task DeleteAsync(string id)
         {
