@@ -8,7 +8,6 @@
             :rules="rules"
             label="Usuário"
             prepend-icon="mdi-account"
-            required
           ></v-text-field>
         </v-row>
         <v-row>
@@ -18,14 +17,15 @@
             label="Senha"
             type="password"
             prepend-icon="mdi-form-textbox-password"
-            required
           ></v-text-field>
         </v-row>
         <v-row>
           <v-btn
-            :disabled="login.username == null || login.password == null"
+            align-center
+            :disabled="!valid"
             :loading="loading"
-            @click="authenticate"
+            type="submit"
+            @click.prevent="authenticate"
           >
             Login
           </v-btn>
@@ -55,10 +55,21 @@ export default {
           data: this.login
         })
         this.$auth.setUser(authResult.data)
-        this.$toast.success('Login efetuado')
+        this.$toast.success('Login efetuado', {
+          iconPack: 'mdi',
+          icon: 'fingerprint',
+          action: {
+            text: 'Fechar',
+            onClick: (_, toastObject) => {
+              toastObject.goAway(0)
+            }
+          }
+        })
       } catch (err) {
         this.$toast.error(err, {
           duration: null,
+          iconPack: 'mdi',
+          icon: 'alert-circle',
           action: {
             text: 'Fechar',
             onClick: (_, toastObject) => {
