@@ -46,7 +46,7 @@ namespace TOTVS.Fullstack.Challenge.AuctionHouse.Service.Auctions
         public async Task CreateAsync(Auction newAuction)
         {
             CommonValidator.EnforceNotNull(newAuction, nameof(newAuction));
-            auctionValidator.Validate(newAuction, ruleSet: $"default,{ValidationRuleSetName.Create}");
+            auctionValidator.ValidateAndThrow(newAuction, ruleSet: $"default,{ValidationRuleSetName.Create}");
             await auctionRepository.CreateAsync(newAuction);
         }
 
