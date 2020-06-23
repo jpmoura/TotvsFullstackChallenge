@@ -30,7 +30,11 @@
         v-if="$auth.loggedIn"
         @click.stop="drawer = !drawer"
       />
-      <v-btn v-if="drawer" icon @click.stop="miniVariant = !miniVariant">
+      <v-btn
+        v-if="drawer && $auth.loggedIn"
+        icon
+        @click.stop="miniVariant = !miniVariant"
+      >
         <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
